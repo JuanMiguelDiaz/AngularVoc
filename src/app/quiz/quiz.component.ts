@@ -32,7 +32,7 @@ export class QuizComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap.get('parent'));
   	this.chosenSubject = id;
-    this.quizItem = this._sampleServiceService.getQuizItem(this.chosenSubject);
+    this.quizItem = this._sampleServiceService.getRandQuizItem(this.chosenSubject);
     this.numOfOpenItems = this._sampleServiceService.getNumOfOpenItems(this.chosenSubject);
     this.question = this.quizItem.question;
     this.answer = this.quizItem.answer;

@@ -21,7 +21,7 @@ export class SampleServiceService {
 		{subject: "Italian", due: 0},
 	]}
 
-  getQuizItem(subject: string) {
+  getRandQuizItem(subject: string) : QuizItem {
 	  this.CountInt ++;
     console.log(this.CountInt);
     if (this.CountInt % 2 == 0) {
@@ -40,9 +40,10 @@ export class SampleServiceService {
   }
 
   addItem(Item){
-    <Subject>{subject: "English", due: 123}
     console.log(Item);
+    // Add item with incrementing ID.
   }
+
 
   getNumOfOpenItems(subject: string) {
     if (this.CountInt % 2 == 0) {
