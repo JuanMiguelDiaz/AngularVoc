@@ -1,0 +1,32 @@
+<button routerLink="/subjects" routerLinkActive="active" (click)="ToOverview()">Back to overview</button>
+<h2>{{chosenSubject}}</h2>
+<p>Quiz | {{numOfOpenItems}} left</p>
+<div class="quizContainer">
+	<div class="quizBox"> 
+		<h2>Question</h2>
+	<textarea disabled=true class="disabledTextarea" cols="40" rows="8" value="{{question}}" style="max-width: 90%;"> </textarea>
+	</div>
+    <div class="quizBox"> 
+    	<h2>Your answer</h2>
+    	<textarea [(ngModel)]="userAnswer" type="text" cols="40" rows="8" style="max-width: 90%;" #userAnswerField></textarea>
+    </div>
+    <div *ngIf="showAnswer" class="quizBox"> 
+    	<h2>Correct Answer</h2>
+    	<textarea disabled=true class="disabledTextarea" cols="40" rows="8" value="{{answer}}" style="max-width: 90%;"></textarea>
+    </div>
+ </div>
+
+<div *ngIf="answerCorrect">
+    <button class="primaryButton" (click)="onNext()" #nextButton>Next</button>
+    <p> Due date is updated to {{quizItem.due}}!<p>
+</div>
+
+<div *ngIf="showAnswer && answerCorrect==false">
+    <button class="primaryButton" (click)="userSaysWrong()">Wrong?</button>
+    <button class="primaryButton" (click)="userSaysRight()">Right?</button>
+    <p *ngIf="typeAgain">Oops. Type again for practice!</p>
+</div>
+
+<div *ngIf="showAnswer==false">
+    <button class="primaryButton" (click)="compare()">Compare</button>
+</div>
