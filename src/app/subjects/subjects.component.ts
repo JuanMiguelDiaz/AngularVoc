@@ -12,6 +12,7 @@ import { SampleServiceService } from '../sample-service.service';
 export class SubjectsComponent implements OnInit {
   
   public subjects = [];
+  public newSubject = "";
 
   constructor(private _sampleServiceService: SampleServiceService, private router: Router) { }
 

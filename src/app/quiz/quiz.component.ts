@@ -18,16 +18,17 @@ export class QuizComponent implements OnInit {
   public answer = "";
   public showAnswer = false;
   public answerCorrect: boolean = false;
-  public typeAgain: boolean = false;
   public numOfOpenItems;
+  public showNext = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private _sampleServiceService: SampleServiceService, private renderer : Renderer2) { }
 
   ngOnInit() {
   	// Reset logic variables for each item
     this.showAnswer = false;
+    this.showNext = false;
     this.answerCorrect = false;
-    this.typeAgain = false;
+    this.userAnswer = "";
 
     let id = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap.get('parent'));
@@ -51,13 +52,19 @@ export class QuizComponent implements OnInit {
     this.showAnswer = true;
     if (this.answer == this.userAnswer) {
       this.answerCorrect = true;
+      this.showNext = true;
+      this.updateAfterAnswer();
+
     }
   }
 
   userSaysRight(){
     this.answerCorrect = true;
+    this.showNext = true;
+    this.updateAfterAnswer();
+
     //this.focusOnNext();
-    //this.renderer.selectRootElement('#nextButton').focus(); // Question: Console says element does not exist?
+    //this.renderer.selectRootElement('#nextButton').focus(); // TODO: Console says element does not exist?
   }
 
   // This is the alternative that works below.
@@ -72,14 +79,18 @@ export class QuizComponent implements OnInit {
    }
 
   userSaysWrong(){
-    this.typeAgain = true;
     this.userAnswer = "";
+    this.showNext = true;
     this.focusBackOnInput();
+    // TODO: Reset
+  }
+
+  updateAfterAnswer(){
+    this._sampleServiceService.updateAfterQuiz(this.quizItem, this.answerCorrect);
+    this._sampleServiceService.getNumOfOpenItems(this.chosenSubject);
   }
 
   onNext(){
-    this._sampleServiceService.updateItem(this.quizItem) 
-    this._sampleServiceService.getNumOfOpenItems(this.chosenSubject)
     // if open items = null, redirect to nice you did it!
     // else: loadNext item
     this.ngOnInit()

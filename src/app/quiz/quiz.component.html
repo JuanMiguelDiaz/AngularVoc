@@ -20,15 +20,16 @@
     <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Edit item</button>
 </div>
 
-<div *ngIf="answerCorrect">
+<div *ngIf="showNext">
     <button class="primaryButton" (click)="onNext()" #nextButton>Next</button>
-    <p> Due date is updated to {{quizItem.due}}!<p>
+    <p *ngIf="answerCorrect"> Due date is updated to {{quizItem.due}}!<p>
+    <p *ngIf="answerCorrect==false">Oops. Type again for practice!</p>
+    <p *ngIf="answerCorrect==false">We'll check it later in the quiz again.</p>
 </div>
 
-<div *ngIf="showAnswer && answerCorrect==false">
+<div *ngIf="showAnswer && answerCorrect==false && showNext==false">
     <button class="primaryButton" (click)="userSaysWrong()">Wrong?</button>
     <button class="primaryButton" (click)="userSaysRight()">Right?</button>
-    <p *ngIf="typeAgain">Oops. Type again for practice!</p>
 </div>
 
 <div *ngIf="showAnswer==false">
