@@ -11,7 +11,7 @@
 	<section class="subjectBox">
 		<h2>Add subject</h2> <i class="material-icons">add</i>
 		<p>Type name for new subject</p>
-		<input type="text" [(ngModel)]="newSubject">
-		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" (click)="ToAddItem(newSubject)">Add subject</button>
+		<input type="text" [(ngModel)]="newSubject" placeholder="Type here...">
+		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" (click)="ToAddItem(newSubject)">Add subject</button> <!-- TODO: Disable when newSubject is empty. -->
 	</section>
 </div>
