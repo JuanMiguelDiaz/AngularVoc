@@ -16,6 +16,10 @@
     </div>
  </div>
 
+<div style="float: left;">
+    <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Edit item</button>
+</div>
+
 <div *ngIf="answerCorrect">
     <button class="primaryButton" (click)="onNext()" #nextButton>Next</button>
     <p> Due date is updated to {{quizItem.due}}!<p>

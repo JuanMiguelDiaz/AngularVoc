@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { SampleServiceService } from '../sample-service.service';
+import { SampleServiceService, QuizItem } from '../sample-service.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { SampleServiceService } from '../sample-service.service';
 export class QuizComponent implements OnInit {
 
   public chosenSubject;
-  public quizItem = {};
+  public quizItem? : QuizItem;
   public userAnswer = "";
   public question = "";
   public answer = "";
@@ -34,13 +34,12 @@ export class QuizComponent implements OnInit {
   	this.chosenSubject = id;
     this.quizItem = this._sampleServiceService.getQuizItem(this.chosenSubject);
     this.numOfOpenItems = this._sampleServiceService.getNumOfOpenItems(this.chosenSubject);
-    if (this.quizItem.swapped == "swapped"){
-      this.question = this.quizItem.answer;
-      this.answer = this.quizItem.question;
-    } else {
-      this.question = this.quizItem.question;
-      this.answer = this.quizItem.answer;
-    }
+    this.question = this.quizItem.question;
+    this.answer = this.quizItem.answer;
+  }
+
+  toEdit(chosenSubject: string, ID: number) {
+    this.router.navigate(['/editItem',chosenSubject, ID]);
   }
 
 
@@ -79,7 +78,7 @@ export class QuizComponent implements OnInit {
   }
 
   onNext(){
-    this._sampleServiceService.updateItem(this.quizItem.id) 
+    this._sampleServiceService.updateItem(this.quizItem) 
     this._sampleServiceService.getNumOfOpenItems(this.chosenSubject)
     // if open items = null, redirect to nice you did it!
     // else: loadNext item

@@ -1,0 +1,17 @@
+<h2>{{subject}}</h2>
+<p>Edit item</p>
+<div class="quizContainer">
+	<div class="quizBox"> 
+		<h2>Question</h2>
+	<textarea [(ngModel)]="quizItem.question" cols="40" rows="8" style="max-width: 90%;"> </textarea>
+	</div>
+    <div class="quizBox"> 
+    	<h2>Answer</h2>
+    	<textarea [(ngModel)]="quizItem.answer" type="text" cols="40" rows="8" style="max-width: 90%;" #userAnswerField></textarea>
+    </div>
+ </div>
+
+<div style="float: left;">
+    <input [(ngModel)]="swapped" disabled type="checkbox"> Reversed item exists and will be edited accordingly.
+    <button class="primaryButton" (click)="clickSave()">Save & return</button>
+</div>

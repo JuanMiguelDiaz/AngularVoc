@@ -7,8 +7,8 @@ export class SampleServiceService {
 
   public CountInt = 0;
   public ItemDict = [
-    {"ID": 1, "question": "Mein Name", "answer": "my name", "subject": "German (Sample)", "phase": 4, "due": "24.12.2018", "swapped": "",},
-    {"ID": 1, "question": "Mein Name", "answer": "my name", "subject": "German (Sample)", "phase": 4, "due": "24.12.2018", "swapped": "",},
+    {"ID": 1, "question": "Mein Name", "answer": "my name", "subject": "German (Sample)", "phase": 4, "due": "24.12.2018", "swappedTo": 1,},
+    {"ID": 1, "question": "Mein Name", "answer": "my name", "subject": "German (Sample)", "phase": 4, "due": "24.12.2018", "swappedTo": 8,},
   ];
 
   constructor() { }
@@ -25,14 +25,18 @@ export class SampleServiceService {
 	  this.CountInt ++;
     console.log(this.CountInt);
     if (this.CountInt % 2 == 0) {
-      return {"ID": 55, "question": "Dein Name", "answer": "your name", "phase": 2, "due": "25.12.2018", "swapped": "",}
+      return {"ID": 55, "question": "Dein Name", "answer": "your name", "subject": "Spanish", "phase": 2, "due": "25.12.2018", "swappedTo": 6,}
     } else {
-      return {"ID": 54, "question": "Mein Name", "answer": "my name", "phase": 4, "due": "24.12.2018", "swapped": "",}
+      return {"ID": 54, "question": "Mein Name", "answer": "my name", "subject": "Spanish", "phase": 4, "due": "24.12.2018", "swappedTo": 4,}
     }
   }
 
-  updateItem(quizItem){
+  updateItem(quizItem: QuizItem){
     //Needed for edit + changing due date.
+  }
+
+  getItem(id : number) : QuizItem{
+    return {"ID": 54, "question": "Mein Name", "answer": "my name", "subject": "Spanish", "phase": 4, "due": "24.12.2018", "swappedTo": 3,}
   }
 
   addItem(Item){
@@ -62,5 +66,5 @@ export class QuizItem {
   public subject : string;
   public phase : number;
   public due : string;
-  public swapped?: string;
+  public swappedTo?: number;
 }
