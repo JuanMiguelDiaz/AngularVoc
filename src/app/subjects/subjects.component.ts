@@ -12,7 +12,8 @@ import { SampleServiceService } from '../sample-service.service';
 export class SubjectsComponent implements OnInit {
   
   public subjects = [];
-  public newSubject = "";
+  public newSubject : string = "";
+  public disableNewSubject = true;
 
   constructor(private _sampleServiceService: SampleServiceService, private router: Router) { }
 
@@ -26,6 +27,15 @@ export class SubjectsComponent implements OnInit {
 
   ToAddItem(subject){
     this.router.navigate(['/addItem', subject]);
+  }
+
+  checkLength(){
+    if (this.newSubject.length >= 1){
+      this.disableNewSubject = false;
+    } else {
+      this.disableNewSubject = true;
+    }
+
   }
 
 }
