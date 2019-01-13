@@ -6,16 +6,31 @@ import { Injectable } from '@angular/core';
 export class SampleServiceService {
 
   public CountInt = 0;
-  public AllItems = JSON.parse(localStorage.getItem("quizItems")); // TODO: logic to check if json is there. Like function "getItems"
 
   constructor() { }
 
-  saveItems(items : QuizItem[]) : void{
+  saveItemsToLocalStorage(items : QuizItem[]) : void{
     localStorage.setItem("quizItems", JSON.stringify(items));
   }
 
+  loadItemsFromLocalStorage() : QuizItem[] {
+    if (JSON.parse(localStorage.getItem("quizItems")) == null) {
+      return [{"ID": 1, "question": "Hallo", "answer": "hello", "subject": "German Sample", "phase": 2, "due": "25.12.2018", "swappedTo": 2,},{"ID": 2, "question": "hello", "answer": "Hallo", "subject": "German Sample", "phase": 2, "due": "25.12.2018", "swappedTo": 1,},{"ID": 3, "question": "Tschüss", "answer": "bye", "subject": "German Sample", "phase": 4, "due": "24.12.2018", "swappedTo": 4,}, {"ID": 4, "question": "bye", "answer": "Tschüss", "subject": "German Sample", "phase": 4, "due": "24.12.2018", "swappedTo": 3,}];
+    } else {
+      return JSON.parse(localStorage.getItem("quizItems"));
+    }
+  }
+
   getSubjects() : Subject[]{
-    this.saveItems(this.getTwoItems()); // TODO
+    let subjectList = [];
+    let dataFromLocal = this.loadItemsFromLocalStorage();
+    this.saveItemsToLocalStorage(this.loadItemsFromLocalStorage());
+    // for (let i in dataFromLocal) {
+    //    if (dataFromLocal[i].subject) {
+
+    //    }
+
+    // TODO: Iterate through items and add new subjects to list and increase it's count for every due item.
     return[
   		{subject: "German", due: 30},
   		{subject: "Spanish", due: 28},
@@ -24,17 +39,13 @@ export class SampleServiceService {
 	]}
 
   getRandQuizItem(subject: string) : QuizItem {
-	  this.CountInt ++;
+    this.CountInt ++;
     if (this.CountInt % 2 == 0) {
       return {"ID": 55, "question": "Dein Name", "answer": "your name", "subject": "Spanish", "phase": 2, "due": "25.12.2018", "swappedTo": 6,}
     } else {
       return {"ID": 54, "question": "Mein Name", "answer": "my name", "subject": "Spanish", "phase": 4, "due": "24.12.2018", "swappedTo": 4,}
     }
   }
-
-  getTwoItems() : QuizItem[] {
-      return [{"ID": 55, "question": "Dein Name", "answer": "your name", "subject": "Spanish", "phase": 2, "due": "25.12.2018", "swappedTo": 6,},{"ID": 54, "question": "Mein Name", "answer": "my name", "subject": "Spanish", "phase": 4, "due": "24.12.2018", "swappedTo": 4,}]
-  } // Delete, when get all items work.
 
   updateItem(quizItem: QuizItem){
     //Needed for edit + changing phase due date.

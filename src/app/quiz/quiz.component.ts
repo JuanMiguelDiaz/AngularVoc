@@ -63,8 +63,10 @@ export class QuizComponent implements OnInit {
     this.showNext = true;
     this.updateAfterAnswer();
 
-    //this.focusOnNext();
-    //this.renderer.selectRootElement('#nextButton').focus(); // TODO: Console says element does not exist?
+    // setTimeout(0, () => {
+    //   this.focusOnNext()
+    //   this.renderer.selectRootElement('#nextButton').focus(); // TODO: Console says element does not exist?
+    // });
   }
 
   // This is the alternative that works below.

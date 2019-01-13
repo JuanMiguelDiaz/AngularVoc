@@ -5,13 +5,13 @@
 			<i class="material-icons">done</i>
 		</ng-template>
 		<p> {{subject.due}} due</p>
-		<button class="primaryButton" routerLink="/subjects" routerLinkActive="active" (click)="ToQuiz(subject.subject)" *ngIf="subject.due>=1">Quiz</button> 
-		<button class="secondaryButton" routerLink="/subjects" routerLinkActive="active" (click)="ToAddItem(subject.subject)">Add items</button>
+		<button class="primaryButton" routerLink="/subjects" routerLinkActive="active" (click)="goToQuiz(subject.subject)" *ngIf="subject.due>=1">Quiz</button> 
+		<button class="secondaryButton" routerLink="/subjects" routerLinkActive="active" (click)="goToAddItem(subject.subject)">Add items</button>
 	</section>
 	<section class="subjectBox">
 		<h2>Add subject</h2> <i class="material-icons">add</i>
 		<p>Type name for new subject</p>
-		<input type="text" [(ngModel)]="newSubject" (change)="checkLength()" placeholder="Type here...">
-		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" [disabled]="disableNewSubject" (click)="ToAddItem(newSubject)">Add subject</button> 
+		<input type="text" [(ngModel)]="newSubject" placeholder="Type here...">
+		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" [disabled]="newSubject.length < 1" (click)="goToAddItem(newSubject)">Add subject</button> 
 	</section>
 </div>

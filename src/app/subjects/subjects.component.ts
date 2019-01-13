@@ -21,21 +21,12 @@ export class SubjectsComponent implements OnInit {
   	this.subjects = this._sampleServiceService.getSubjects();
   }
 
-  ToQuiz(subject){
+  goToQuiz(subject){
 	  this.router.navigate(['/quiz', subject]);
   }
 
-  ToAddItem(subject){
+  goToAddItem(subject){
     this.router.navigate(['/addItem', subject]);
-  }
-
-  checkLength(){
-    if (this.newSubject.length >= 1){
-      this.disableNewSubject = false;
-    } else {
-      this.disableNewSubject = true;
-    }
-
   }
 
 }
