@@ -16,12 +16,15 @@ export class EditItemComponent implements OnInit {
 	public quizItem : QuizItem;
 	public swapped = false;
 
+  // TODO: Needs phase and due-date as property binding to allow editing.
+
   constructor(private route: ActivatedRoute, private _sampleServiceService: SampleServiceService, private location: Location,) { }
 
   ngOnInit() {
   	this.subject = this.route.snapshot.paramMap.get('subject');
   	this.itemId = parseInt(this.route.snapshot.paramMap.get('id'));
   	this.quizItem = this._sampleServiceService.getItem(this.itemId);
+    console.log(this.quizItem.swappedTo);
   	if(this.quizItem.swappedTo){
   		this.swapped = true;
   	}

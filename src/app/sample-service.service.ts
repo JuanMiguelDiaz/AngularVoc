@@ -15,34 +15,51 @@ export class SampleServiceService {
   loadItems() : QuizItem[] {
     if (JSON.parse(localStorage.getItem("quizItems")) == null) {
       return [
-        {"ID": 1, "question": "Hallo", "answer": "hello", "subject": "German Sample", "phase": 2, "due": "25.12.2018", "swappedTo": 2,},
-        {"ID": 2, "question": "hello", "answer": "Hallo", "subject": "German Sample", "phase": 2, "due": "25.12.2018", "swappedTo": 1,},
-        {"ID": 3, "question": "Tschüss", "answer": "bye", "subject": "German Sample", "phase": 4, "due": "24.12.2018", "swappedTo": 4,},
-        {"ID": 4, "question": "bye", "answer": "Tschüss", "subject": "German Sample", "phase": 4, "due": "24.12.2018", "swappedTo": 3,}
+        {"ID": 1, "question": "Hallo", "answer": "hello", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 2,},
+        {"ID": 2, "question": "hello", "answer": "Hallo", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 1,},
+        {"ID": 3, "question": "Tschüss", "answer": "bye", "subject": "German as sample", "phase": 4, "due": "24.12.2018", "swappedTo": 4,},
+        {"ID": 4, "question": "bye", "answer": "Tschüss", "subject": "German as sample", "phase": 4, "due": "23.12.2018", "swappedTo": 3,},
       ];
     } else {
       return JSON.parse(localStorage.getItem("quizItems"));
     }
   }
 
+
   initializeProject() {
     this.globalItems = this.loadItems();
   }
+
 
   saveProgress() {
     localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
   }
 
+
+  stringToDate(datestring: string) {
+    var parts = datestring.split(".");
+    var date = new Date(parts[2].concat("-", parts[1], "-", parts[0]));
+    return date;
+  }
+
+
   getSubjects() : Subject[]{
     this.initializeProject();
-    // TODO: Iterate through globalItems and add new subjects to list and increase it's count for every due item.
 
-    let subjectList = [
-      {subject: "German", due: 30},
-      {subject: "Spanish", due: 28},
-      {subject: "Business English", due: 5},
-      {subject: "Italian", due: 0},
-    ];
+    let subjectList : Subject[] = [];
+    let subjects = [];
+
+    for (let k in this.globalItems) {
+      if (!(subjects.includes(this.globalItems[k].subject))) { // Question: How could I check subjectList instead so I don't need subjects any longer?
+        subjects.push(this.globalItems[k].subject);
+        subjectList.push({subject: this.globalItems[k].subject, due: 0});
+      }
+      let today = new Date(Date.now());
+      if (this.stringToDate(this.globalItems[k].due) <= today) {
+        let index = subjectList.findIndex(x => x.subject==this.globalItems[k].subject);
+        subjectList[index]["due"] ++;
+      }
+    }
 
     return subjectList;
   }
@@ -65,28 +82,31 @@ export class SampleServiceService {
   /* ------------- (2) For edit-item-component -------------- */
 
   updateItem(quizItem: QuizItem){
-    // TODO: Save update in globalItems.
+    let index = this.globalItems.findIndex(x => x.subject == quizItem.subject);
+    this.globalItems[index] = quizItem;
     this.saveProgress();
   }
 
   /* ------------- (3) For add-item-component -------------- */
   addItem(Item){
     console.log(Item);
-    // TODO: Add item with incrementing ID to globalItems.
+    // TODO: Add item with incrementing ID, due date today and reserved if swapped to globalItems.
     this.saveProgress();
   }
 
   /* ------------- (4) For quiz component -------------- */
   getRandQuizItem(subject: string) : QuizItem {
+    // TODO: Get a real quiz item
     this.CountInt ++;
     if (this.CountInt % 2 == 0) {
-      return {"ID": 55, "question": "Dein Name", "answer": "your name", "subject": "Spanish", "phase": 2, "due": "25.12.2018", "swappedTo": 6,}
+      return this.globalItems[0]
     } else {
-      return {"ID": 54, "question": "Mein Name", "answer": "my name", "subject": "Spanish", "phase": 4, "due": "24.12.2018", "swappedTo": 4,}
+      return this.globalItems[1]
     }
   }  
 
   getNumOfOpenItems(subject: string) {
+    // TODO: Count real number of open questions
     if (this.CountInt % 2 == 0) {
       return 5
     } else {
@@ -115,7 +135,8 @@ export class SampleServiceService {
   }
 
   getItem(id : number) : QuizItem{
-    return {"ID": 54, "question": "Mein Name", "answer": "my name", "subject": "Spanish", "phase": 4, "due": "24.12.2018", "swappedTo": 3,}
+    let index = this.globalItems.findIndex(x => x.ID == id); // NEXT TODO: Throws an error.
+    return this.globalItems[index];
   }
 
 }
