@@ -22,7 +22,7 @@
 
 <div *ngIf="showNext">
     <button class="primaryButton" (click)="onNext()" #nextButton>Next</button>
-    <p *ngIf="answerCorrect"> Due date is updated to {{quizItem.due}}!<p>
+    <p *ngIf="answerCorrect"> New phase: {{quizItem.phase}}.Due date is updated to {{quizItem.due}}!<p>
     <p *ngIf="answerCorrect==false">Oops. Type again for practice!</p>
     <p *ngIf="answerCorrect==false">We'll check it later in the quiz again.</p>
 </div>
