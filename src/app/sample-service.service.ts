@@ -1,25 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SampleServiceService {
 
-  public CountInt = 0;
-  public globalItems : QuizItem[];
+  public globalItems;
 
   constructor() { }
 
   /* ------------- (1) General -------------- */
 
-  loadItems() : QuizItem[] {
+  // ngOnInit() { this.initializeProject(); } // Need to make this work, so I don't need to call it within functions.
+
+  loadItems() {
     if (JSON.parse(localStorage.getItem("quizItems")) == null) {
-      return [
-        {"ID": 1, "question": "Hallo", "answer": "hello", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 2,},
-        {"ID": 2, "question": "hello", "answer": "Hallo", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 1,},
-        {"ID": 3, "question": "Tschüss", "answer": "bye", "subject": "German as sample", "phase": 4, "due": "24.12.2018", "swappedTo": 4,},
-        {"ID": 4, "question": "bye", "answer": "Tschüss", "subject": "German as sample", "phase": 4, "due": "23.12.2018", "swappedTo": 3,},
-      ];
+      return {
+        1 : {"question": "Hallo", "answer": "hello", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 2,},
+        2 : {"question": "hello", "answer": "Hallo", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 1,},
+        3 : {"question": "Tschüss", "answer": "bye", "subject": "German as sample", "phase": 4, "due": "24.12.2018", "swappedTo": 4,},
+        4 : {"question": "bye", "answer": "Tschüss", "subject": "German as sample", "phase": 4, "due": "23.12.2018", "swappedTo": 3,},
+      };
     } else {
       return JSON.parse(localStorage.getItem("quizItems"));
     }
@@ -42,9 +43,17 @@ export class SampleServiceService {
     return date;
   }
 
+  getMax(obj) : number {
+    let max : number;
+    for (var property in obj) {
+      max = (max < parseFloat(property)) ? parseFloat(property) : max;
+    }
+    return max;
+  }
+
 
   getSubjects() : Subject[]{
-    this.initializeProject();
+    this.initializeProject(); 
 
     let subjectList : Subject[] = [];
     let subjects = [];
@@ -82,36 +91,58 @@ export class SampleServiceService {
   /* ------------- (2) For edit-item-component -------------- */
 
   updateItem(quizItem: QuizItem){
-    let index = this.globalItems.findIndex(x => x.subject == quizItem.subject);
-    this.globalItems[index] = quizItem;
+    this.initializeProject(); 
+
+    this.globalItems[quizItem.ID] = {"question": quizItem.question, "answer": quizItem.answer, "subject": quizItem.subject, "phase": quizItem.phase, "due": quizItem.due, "swappedTo": quizItem.swappedTo,};
     this.saveProgress();
   }
 
   /* ------------- (3) For add-item-component -------------- */
   addItem(Item){
+    this.initializeProject(); 
+
     console.log(Item);
-    // TODO: Add item with incrementing ID, due date today and reserved if swapped to globalItems.
+    let today = new Date(Date.now());
+    if (Item.swapped == false) {
+      let currentMax : number = this.getMax(this.globalItems)
+      this.globalItems[(currentMax + 1)] = {"question": Item.question, "answer": Item.answer, "subject": Item.subject, "phase": 1, "due": today.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' }),}; //TODO: Fix bug in here.
+    } else {
+      let currentMax : number = this.getMax(this.globalItems);
+      this.globalItems[(currentMax + 1)] = {"question": Item.question, "answer": Item.answer, "subject": Item.subject, "phase": 1, "due": today.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' }), "swappedTo": currentMax+2 };
+      this.globalItems[(currentMax + 2)] = {"question": Item.answer, "answer": Item.question, "subject": Item.subject, "phase": 1, "due": today.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' }), "swappedTo": currentMax+1 };
+    }
     this.saveProgress();
   }
 
   /* ------------- (4) For quiz component -------------- */
   getRandQuizItem(subject: string) : QuizItem {
-    // TODO: Get a real quiz item
-    this.CountInt ++;
-    if (this.CountInt % 2 == 0) {
-      return this.globalItems[0]
-    } else {
-      return this.globalItems[1]
+    
+    this.initializeProject(); 
+
+    let today = new Date(Date.now());
+    var listOfDue : number[] = [];
+    for (let k in this.globalItems) {
+      if (this.globalItems[k].subject == subject && this.stringToDate(this.globalItems[k].due) <= today) { // Question: How could I check subjectList instead so I don't need subjects any longer?
+        listOfDue.push(parseInt(k));
+      }
     }
-  }  
+    let random : number = listOfDue[this.getRandom(listOfDue.length)];
+    return { "ID": this.globalItems[random], "question": this.globalItems[random].question, "answer": this.globalItems[random].answer, "subject": this.globalItems[random].subject, "phase": this.globalItems[random].phase, "due": this.globalItems[random].due, "swappedTo": this.globalItems[random].swappedTo,};
+  }
+
+  getRandom(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
 
   getNumOfOpenItems(subject: string) {
-    // TODO: Count real number of open questions
-    if (this.CountInt % 2 == 0) {
-      return 5
-    } else {
-      return 4
+    var number : number = 0;
+    let today = new Date(Date.now());
+    for (let k in this.globalItems) {
+      if (this.globalItems[k].subject == subject && this.stringToDate(this.globalItems[k].due) <= today) {
+        number ++;
+      }
     }
+    return number
   }
 
   updateAfterQuiz(quizItem: QuizItem, answerCorrect: boolean) : QuizItem {
@@ -130,13 +161,12 @@ export class SampleServiceService {
       quizItem.phase = 1;
     }
     return quizItem
-    // TODO: Replace item in globalItems
+    this.globalItems[quizItem.ID] = {"question": quizItem.question, "answer": quizItem.answer, "subject": quizItem.subject, "phase": quizItem.phase, "due": quizItem.due, "swappedTo": quizItem.swappedTo,};
     this.saveProgress();
   }
 
   getItem(id : number) : QuizItem{
-    let index = this.globalItems.findIndex(x => x.ID == id); // NEXT TODO: Throws an error.
-    return this.globalItems[index];
+    return { "ID": this.globalItems[id], "question": this.globalItems[id].question, "answer": this.globalItems[id].answer, "subject": this.globalItems[id].subject, "phase": this.globalItems[id].phase, "due": this.globalItems[id].due, "swappedTo": this.globalItems[id].swappedTo,};
   }
 
 }
