@@ -84,6 +84,8 @@ export class QuizComponent implements OnInit {
   userSaysWrong(){
     this.userAnswer = "";
     this.showNext = true;
+    this.answerCorrect = false;
+    this.updateAfterAnswer()
     this.focusBackOnInput();
   }
 

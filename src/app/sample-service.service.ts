@@ -163,7 +163,6 @@ export class SampleServiceService /*implements OnInit*/ {
       }
     } else {
       let today = new Date(Date.now());
-      quizItem.due = today.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' });
       quizItem.phase = 1;
     }
     this.globalItems[quizItem.ID] = {"question": quizItem.question, "answer": quizItem.answer, "subject": quizItem.subject, "phase": quizItem.phase, "due": quizItem.due, "swappedTo": quizItem.swappedTo,};
