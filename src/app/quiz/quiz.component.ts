@@ -18,7 +18,7 @@ export class QuizComponent implements OnInit {
   public answer = "";
   public showAnswer = false;
   public answerCorrect: boolean = false;
-  public numOfOpenItems;
+  public numOfOpenItems : number; // TODO: When is 0, show done icon.
   public showNext = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private _sampleServiceService: SampleServiceService, private renderer : Renderer2) { }
@@ -32,10 +32,12 @@ export class QuizComponent implements OnInit {
 
     let id = this.route.snapshot.paramMap.get('id');
   	this.chosenSubject = id;
-    this.quizItem = this._sampleServiceService.getRandQuizItem(this.chosenSubject);
     this.numOfOpenItems = this._sampleServiceService.getNumOfOpenItems(this.chosenSubject);
-    this.question = this.quizItem.question;
-    this.answer = this.quizItem.answer;
+    if (this.numOfOpenItems > 0){
+      this.quizItem = this._sampleServiceService.getRandQuizItem(this.chosenSubject);
+      this.question = this.quizItem.question;
+      this.answer = this.quizItem.answer;
+    }
   }
 
   toEdit(chosenSubject: string, ID: number) {
@@ -83,17 +85,14 @@ export class QuizComponent implements OnInit {
     this.userAnswer = "";
     this.showNext = true;
     this.focusBackOnInput();
-    // TODO: Reset
   }
 
   updateAfterAnswer(){
     this._sampleServiceService.updateAfterQuiz(this.quizItem, this.answerCorrect);
-    this._sampleServiceService.getNumOfOpenItems(this.chosenSubject);
+    this.numOfOpenItems = this._sampleServiceService.getNumOfOpenItems(this.chosenSubject);
   }
 
   onNext(){
-    // if open items = null, redirect to nice you did it!
-    // else: loadNext item
     this.ngOnInit()
   }
 

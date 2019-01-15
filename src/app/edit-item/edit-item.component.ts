@@ -29,10 +29,16 @@ export class EditItemComponent implements OnInit {
   		this.swapped = true;
   	}
   }
+
+
   clickSave(){
-  	// Call edit-function + location.back
   	this._sampleServiceService.updateItem(this.quizItem);
-  	console.log(this.quizItem);
   	this.location.back();
   }
+
+  clickDelete(){
+    this._sampleServiceService.deleteItem(this.quizItem);
+    this.location.back();
+}
+
 }

@@ -12,6 +12,7 @@
  </div>
 
 <div style="float: left;">
-    <input [(ngModel)]="swapped" disabled type="checkbox"> Reversed item exists and will be edited accordingly.
+    <input [(ngModel)]="swapped" disabled type="checkbox"> Edits apply to reversed item too (if one exists).
+    <button class="secondaryButton" (click)="clickDelete()">Delete</button>
     <button class="primaryButton" (click)="clickSave()">Save & return</button>
 </div>

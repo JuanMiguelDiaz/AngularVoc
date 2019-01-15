@@ -3,15 +3,15 @@ import { Injectable, OnInit } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class SampleServiceService {
+export class SampleServiceService /*implements OnInit*/ {
 
   public globalItems;
 
-  constructor() { }
+  constructor() { 
+    this.initializeProject();
+  }
 
   /* ------------- (1) General -------------- */
-
-  // ngOnInit() { this.initializeProject(); } // Need to make this work, so I don't need to call it within functions.
 
   loadItems() {
     if (JSON.parse(localStorage.getItem("quizItems")) == null) {
@@ -44,16 +44,17 @@ export class SampleServiceService {
   }
 
   getMax(obj) : number {
-    let max : number;
+    let max : number = 0;
     for (var property in obj) {
-      max = (max < parseFloat(property)) ? parseFloat(property) : max;
+      if (parseInt(property) > max) {
+        max = parseInt(property);
+      }
     }
     return max;
   }
 
 
   getSubjects() : Subject[]{
-    this.initializeProject(); 
 
     let subjectList : Subject[] = [];
     let subjects = [];
@@ -91,17 +92,25 @@ export class SampleServiceService {
   /* ------------- (2) For edit-item-component -------------- */
 
   updateItem(quizItem: QuizItem){
-    this.initializeProject(); 
-
+    if (typeof quizItem.swappedTo !== 'undefined') {
+      this.globalItems[quizItem.swappedTo].question = quizItem.answer;
+      this.globalItems[quizItem.swappedTo].answer = quizItem.question;
+    }
     this.globalItems[quizItem.ID] = {"question": quizItem.question, "answer": quizItem.answer, "subject": quizItem.subject, "phase": quizItem.phase, "due": quizItem.due, "swappedTo": quizItem.swappedTo,};
+    this.saveProgress();
+  }
+
+  deleteItem(quizItem: QuizItem){
+    if (typeof quizItem.swappedTo !== 'undefined') {
+      delete this.globalItems[quizItem.swappedTo];
+    }
+    delete this.globalItems[quizItem.ID];
     this.saveProgress();
   }
 
   /* ------------- (3) For add-item-component -------------- */
   addItem(Item){
-    this.initializeProject(); 
 
-    console.log(Item);
     let today = new Date(Date.now());
     if (Item.swapped == false) {
       let currentMax : number = this.getMax(this.globalItems)
@@ -117,8 +126,6 @@ export class SampleServiceService {
   /* ------------- (4) For quiz component -------------- */
   getRandQuizItem(subject: string) : QuizItem {
     
-    this.initializeProject(); 
-
     let today = new Date(Date.now());
     var listOfDue : number[] = [];
     for (let k in this.globalItems) {
@@ -127,7 +134,7 @@ export class SampleServiceService {
       }
     }
     let random : number = listOfDue[this.getRandom(listOfDue.length)];
-    return { "ID": this.globalItems[random], "question": this.globalItems[random].question, "answer": this.globalItems[random].answer, "subject": this.globalItems[random].subject, "phase": this.globalItems[random].phase, "due": this.globalItems[random].due, "swappedTo": this.globalItems[random].swappedTo,};
+    return { "ID": random, "question": this.globalItems[random].question, "answer": this.globalItems[random].answer, "subject": this.globalItems[random].subject, "phase": this.globalItems[random].phase, "due": this.globalItems[random].due, "swappedTo": this.globalItems[random].swappedTo,};
   }
 
   getRandom(max) {
@@ -149,7 +156,6 @@ export class SampleServiceService {
     if (answerCorrect == true) {
       if (quizItem.phase == 6) {
         quizItem.due == "";
-        quizItem.phase ++;
       } else {
         let newDue = new Date(this.updateDueDate(quizItem.phase));
         quizItem.due = newDue.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' });
@@ -160,13 +166,14 @@ export class SampleServiceService {
       quizItem.due = today.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' });
       quizItem.phase = 1;
     }
-    return quizItem
     this.globalItems[quizItem.ID] = {"question": quizItem.question, "answer": quizItem.answer, "subject": quizItem.subject, "phase": quizItem.phase, "due": quizItem.due, "swappedTo": quizItem.swappedTo,};
     this.saveProgress();
+
+    return quizItem;
   }
 
   getItem(id : number) : QuizItem{
-    return { "ID": this.globalItems[id], "question": this.globalItems[id].question, "answer": this.globalItems[id].answer, "subject": this.globalItems[id].subject, "phase": this.globalItems[id].phase, "due": this.globalItems[id].due, "swappedTo": this.globalItems[id].swappedTo,};
+    return { "ID": id, "question": this.globalItems[id].question, "answer": this.globalItems[id].answer, "subject": this.globalItems[id].subject, "phase": this.globalItems[id].phase, "due": this.globalItems[id].due, "swappedTo": this.globalItems[id].swappedTo,};
   }
 
 }
@@ -179,7 +186,7 @@ export class Subject {
 }
 
 export class QuizItem {
-  public ID: number;
+  public ID : number;
   public question : string;
   public answer : string;
   public subject : string;
