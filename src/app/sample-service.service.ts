@@ -3,7 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class SampleServiceService /*implements OnInit*/ {
+export class SampleServiceService{
 
   public globalItems;
 
@@ -18,8 +18,8 @@ export class SampleServiceService /*implements OnInit*/ {
       return {
         1 : {"question": "Hallo", "answer": "hello", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 2,},
         2 : {"question": "hello", "answer": "Hallo", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 1,},
-        3 : {"question": "Tschüss", "answer": "bye", "subject": "German as sample", "phase": 4, "due": "24.12.2018", "swappedTo": 4,},
-        4 : {"question": "bye", "answer": "Tschüss", "subject": "German as sample", "phase": 4, "due": "23.12.2018", "swappedTo": 3,},
+        3 : {"question": "Tschüss", "answer": "bye", "subject": "German as sample", "phase": 4, "due": "14.1.2019", "swappedTo": 4,},
+        4 : {"question": "bye", "answer": "Tschüss", "subject": "German as sample", "phase": 4, "due": "1.12.2018", "swappedTo": 3,},
       };
     } else {
       return JSON.parse(localStorage.getItem("quizItems"));
@@ -39,6 +39,12 @@ export class SampleServiceService /*implements OnInit*/ {
 
   stringToDate(datestring: string) {
     var parts = datestring.split(".");
+    if(parts[0].length == 1) {
+      parts[0] = "0" + parts[0];
+    }
+    if(parts[1].length == 1) {
+      parts[1] = "0" + parts[1];
+    }
     var date = new Date(parts[2].concat("-", parts[1], "-", parts[0]));
     return date;
   }
@@ -70,7 +76,6 @@ export class SampleServiceService /*implements OnInit*/ {
         subjectList[index]["due"] ++;
       }
     }
-
     return subjectList;
   }
 
