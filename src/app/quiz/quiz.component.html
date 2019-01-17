@@ -1,20 +1,22 @@
-<button routerLink="/subjects" routerLinkActive="active" (click)="ToOverview()">Back to overview</button>
-<h2>{{chosenSubject}}</h2>
+<div style="text-align: center;">
+    <button routerLink="/subjects" routerLinkActive="active" (click)="ToOverview()">Back to overview</button>
+    <h2>{{chosenSubject}}</h2>
+</div>
 
 <div *ngIf="numOfOpenItems > 0; else doneBlock">
-    <p>Quiz | {{numOfOpenItems}} left</p>
+    <p style="text-align: center;">Quiz | {{numOfOpenItems}} left</p>
     <div class="quizContainer">
     	<div class="quizBox"> 
     		<h2>Question</h2>
-    	<textarea disabled=true class="disabledTextarea" cols="40" rows="8" value="{{question}}" style="max-width: 90%;"> </textarea>
+    	<textarea disabled=true class="disabledTextarea" cols="40" rows="8" value="{{question}}"> </textarea>
     	</div>
         <div class="quizBox"> 
         	<h2>Your answer</h2>
-        	<textarea [(ngModel)]="userAnswer" type="text" cols="40" rows="8" style="max-width: 90%;" #userAnswerField></textarea>
+        	<textarea [(ngModel)]="userAnswer" type="text" cols="40" rows="8" #userAnswerField></textarea>
         </div>
         <div *ngIf="showAnswer" class="quizBox"> 
         	<h2>Correct Answer</h2>
-        	<textarea disabled=true class="disabledTextarea" cols="40" rows="8" value="{{answer}}" style="max-width: 90%;"></textarea>
+        	<textarea disabled=true class="disabledTextarea" cols="40" rows="8" value="{{answer}}"></textarea>
         </div>
      </div>
 
@@ -24,8 +26,9 @@
 
     <div *ngIf="showNext">
         <button class="primaryButton" (click)="onNext()" #nextButton>Next</button>
-        <p *ngIf="answerCorrect"> New phase: {{quizItem.phase}}.Due date is updated to {{quizItem.due}}!<p>
-        <p *ngIf="answerCorrect==false">Oops. Type again for practice!</p>
+        <p *ngIf="answerCorrect"><i class="material-icons green md-16">done</i> Moved to phase {{quizItem.phase}} </p>
+        <p *ngIf="answerCorrect"><i class="material-icons md-16">calendar_today</i> Due on {{quizItem.due}}</p>
+        <p *ngIf="answerCorrect==false"><i class="material-icons red md-16">feedback</i> Oops. Type again for practice!</p>
         <p *ngIf="answerCorrect==false">We'll check it later in the quiz again.</p>
     </div>
 
@@ -39,7 +42,7 @@
     </div>
 </div>
 <ng-template #doneBlock>
-    <i class="material-icons">done</i>
+    <i class="material-icons green">done</i>
     <h3>Nice, you are done here!</h3>
     Go back to your subject overview.
 </ng-template>

@@ -1,7 +1,8 @@
-<button routerLinkActive="active" (click)="ToOverview()">Back to overview</button>
-<h2>{{chosenSubject}}</h2>
-<p>Adding item<span *ngIf="itemsAdded >= 1"> ({{itemsAdded}} just added)</span></p>
-
+<div style="text-align: center;">
+	<button routerLinkActive="active" (click)="ToOverview()">Back to overview</button>
+	<h2>{{chosenSubject}}</h2>
+	<p>Adding item<span *ngIf="itemsAdded >= 1"> ({{itemsAdded}} just added)</span></p>
+</div>
 <div class="quizContainer">
 	<div class="quizBox"> 
 		<h2>Question</h2>

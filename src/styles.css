@@ -13,6 +13,7 @@ line-height: 1;
     grid-gap: 12px;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     grid-template-rows: repeat(2, 240px);
+    text-align:center;
 }
 
 .quizContainer {
@@ -20,6 +21,8 @@ line-height: 1;
     grid-gap: 8px;
     grid-template-columns: repeat(auto-fit, 400px);
     grid-template-rows: repeat(1, 250px);
+    max-width: 100%;
+    text-align:center;
 }
 
 @media (max-width: 400px) {
@@ -205,3 +208,10 @@ input{
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+.material-icons.grey { color:rgba(0,0,0,0.56); }
+.material-icons.green { color: #919F01; }
+.material-icons.red { color: #EB5757; }
+.material-icons.md-16 { font-size: 16px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-48 { font-size: 48px; }
