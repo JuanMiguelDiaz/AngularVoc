@@ -11,13 +11,43 @@
 
 	<table>
 	  <tr>
-	    <th *ngFor="let col of columns">
-	      {{col}}
+	   	<th>
+	      ID
+	    </th>
+	    <th>
+	      Question
+	    </th>
+	    <th>
+	      Answer
+	    </th>
+	    <th>
+	      Phase
+	    </th>
+	    <th>
+	      Due
+	    </th>
+	    <th>
+	      Pair ID
 	    </th>
 	  </tr>
 	  <tr *ngFor="let item of itemList">
-	    <td *ngFor="let col of columns" >
-	      {{item[col]}}
+	    <td>
+	      {{item.ID}}
+	    </td>
+	    <td>
+	      {{item.question}}
+	    </td>
+	   	<td>
+	      {{item.answer}}
+	    </td>
+	   	<td>
+	      {{item.phase}}
+	    </td>
+	    <td>
+	      {{item.due}}
+	    </td>
+	   	<td>
+	      {{item.swappedTo}}
 	    </td>
 	    <td>
 	    	<button class="secondaryButton" (click)="toEdit(subject, item.ID)">Edit item</button>
