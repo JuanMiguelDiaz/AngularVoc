@@ -1,0 +1,28 @@
+<div style="text-align: center;">
+    <button routerLink="/subjects" routerLinkActive="active" (click)="ToOverview()">Back to overview</button>
+    <h2>{{subject}}</h2>
+</div>
+
+<div>
+    <p style="text-align: center;">Item list | {{noOfItems}} items</p>
+<!--     <ul>
+	  <li *ngFor='let item of itemList'>{{ item.ID }}</li>
+	</ul> -->
+
+	<table>
+	  <tr>
+	    <th *ngFor="let col of columns">
+	      {{col}}
+	    </th>
+	  </tr>
+	  <tr *ngFor="let item of itemList">
+	    <td *ngFor="let col of columns" >
+	      {{item[col]}}
+	    </td>
+	    <td>
+	    	<button class="secondaryButton" (click)="toEdit(subject, item.ID)">Edit item</button>
+	    </td>
+	  </tr>
+	</table>
+
+</div>

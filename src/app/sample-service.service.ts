@@ -79,6 +79,17 @@ export class SampleServiceService{
     return subjectList;
   }
 
+  getItemsForSubject(subject:string) : QuizItem[] {
+    let Items : QuizItem[] = [];
+    for (let k in this.globalItems) {
+      if (this.globalItems[k].subject == subject) {
+        Items.push({ "ID": parseInt(k), "question": this.globalItems[k].question, "answer": this.globalItems[k].answer, "subject": this.globalItems[k].subject, "phase": this.globalItems[k].phase, "due": this.globalItems[k].due, "swappedTo": this.globalItems[k].swappedTo,});
+      }
+    }
+    console.log(Items);
+    return Items;
+  }
+
   updateDueDate(currentPhase : number) : any{
     let newDue = new Date();
     if (currentPhase == 1) {

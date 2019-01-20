@@ -29,4 +29,8 @@ export class SubjectsComponent implements OnInit {
     this.router.navigate(['/addItem', subject]);
   }
 
+  goToItems(subject) {
+    this.router.navigate(['/items', subject]);
+  }
+
 }

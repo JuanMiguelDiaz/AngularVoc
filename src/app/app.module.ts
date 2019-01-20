@@ -10,6 +10,7 @@ import { SampleServiceService } from './sample-service.service';
 import { QuizComponent } from './quiz/quiz.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
+import { ItemListComponent } from './item-list/item-list.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { EditItemComponent } from './edit-item/edit-item.component';
     QuizComponent,
     AddItemComponent,
     EditItemComponent,
+    ItemListComponent,
   ],
   imports: [
     BrowserModule,

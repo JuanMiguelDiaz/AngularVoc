@@ -2,9 +2,9 @@
 	<section class="subjectBox" *ngFor="let subject of subjects">
 		<h2>{{subject.subject}}</h2> <i *ngIf="subject.due>=1; else elseBlock" class="material-icons">alarm</i>
 		<ng-template #elseBlock>
-			<i class="material-icons">done</i>
+			<i class="material-icons green md-24">done</i>
 		</ng-template>
-		<p> {{subject.due}} due</p>
+		<p> {{subject.due}} due | <a routerLink="/subjects" routerLinkActive="active" (click)="goToItems(subject.subject)">View all</a> </p>
 		<button class="primaryButton" routerLink="/subjects" routerLinkActive="active" (click)="goToQuiz(subject.subject)" *ngIf="subject.due>=1">Quiz</button> 
 		<button class="secondaryButton" routerLink="/subjects" routerLinkActive="active" (click)="goToAddItem(subject.subject)">Add items</button>
 	</section>

@@ -29,6 +29,16 @@ line-height: 1;
   /* CSS that should be displayed if width is equal to or less than 800px goes here */
 }
 
+table{
+  text-align: center;
+}
+
+th{
+  padding: 8px;
+  min-width: 80px;
+  border-bottom: 2px solid rgba(0,0,0,.12);
+}
+
 textarea {
   padding: 8px;
   text-align: left;
@@ -209,7 +219,7 @@ input{
   font-feature-settings: 'liga';
 }
 
-.material-icons.grey { color:rgba(0,0,0,0.56); }
+.material-icons.grey { color: #656565; }
 .material-icons.green { color: #919F01; }
 .material-icons.red { color: #EB5757; }
 .material-icons.md-16 { font-size: 16px; }
