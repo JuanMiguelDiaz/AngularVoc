@@ -56,3 +56,32 @@
 	</table>
 
 </div>
+
+  <div class="table-responsive-vertical shadow-z-1">
+  <!-- Table starts here -->
+  <table id="table" class="table table-hover table-mc-light-blue">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Question</th>
+          <th>Answer</th>
+          <th>Phase</th>
+          <th>Due</th>
+          <th>Pair ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itemList">
+          <td data-title="ID">{{item.ID}}</td>
+          <td data-title="Question">{{item.question}}</td>
+          <td data-title="Answer">{{item.answer}}</td>
+          <td data-title="Phase">{{item.phase}}</td>
+	      <td data-title="Due">{{item.due}}</td>
+	      <td data-title="Pair ID">{{item.swappedTo}}</td>
+	      <td data-title="Edit">
+	    	<button class="secondaryButton" (click)="toEdit(subject, item.ID)">Edit item</button>
+	      </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
