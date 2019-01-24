@@ -22,13 +22,17 @@ export class AddItemComponent implements OnInit {
   	let id = this.route.snapshot.paramMap.get('id');
   	this.chosenSubject = id;
   }
+
+  ngAfterViewInit(){
+    this.focusOnInput();
+  }
    
   ToOverview(){
 	this.router.navigate(['/']);
   }
 
-  @ViewChild("questionField") userAnswerField: ElementRef;
-  focusBackOnInput(): void {
+  @ViewChild("QuestionInput") userAnswerField: ElementRef;
+  focusOnInput(): void {
     this.userAnswerField.nativeElement.focus();
    }
 
@@ -40,7 +44,7 @@ export class AddItemComponent implements OnInit {
                                       });
     this.question = "";
     this.answer = "";
-    this.focusBackOnInput();
+    this.focusOnInput();
     this.itemsAdded ++;
   }
 

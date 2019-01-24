@@ -40,6 +40,15 @@ export class QuizComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(){
+    this.focusOnInput();
+  }
+
+  @ViewChild("userAnswerField") userAnswerField: ElementRef;
+  focusOnInput(): void {
+    this.userAnswerField.nativeElement.focus();
+   }
+
   toEdit(chosenSubject: string, ID: number) {
     this.router.navigate(['/editItem',chosenSubject, ID]);
   }
@@ -63,30 +72,14 @@ export class QuizComponent implements OnInit {
     this.answerCorrect = true;
     this.showNext = true;
     this.updateAfterAnswer();
-
-    // setTimeout(0, () => {
-    //   this.focusOnNext()
-    //   this.renderer.selectRootElement('#nextButton').focus(); // TODO: Console says element does not exist?
-    // });
   }
-
-  // This is the alternative that works below.
-  // @ViewChild("nextButton") nextButton: ElementRef;
-  // focusOnNext(): void {
-  //   this.nextButton.nativeElement.focus();
-  // }
-
-  @ViewChild("userAnswerField") userAnswerField: ElementRef;
-  focusBackOnInput(): void {
-    this.userAnswerField.nativeElement.focus();
-   }
 
   userSaysWrong(){
     this.userAnswer = "";
     this.showNext = true;
     this.answerCorrect = false;
     this.updateAfterAnswer()
-    this.focusBackOnInput();
+    this.focusOnInput();
   }
 
   updateAfterAnswer(){
@@ -95,7 +88,8 @@ export class QuizComponent implements OnInit {
   }
 
   onNext(){
-    this.ngOnInit()
+    this.ngOnInit();
+    this.ngAfterViewInit();
   }
 
 }

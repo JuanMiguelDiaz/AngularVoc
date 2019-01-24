@@ -20,26 +20,26 @@
         </div>
      </div>
 
-    <div style="float: left;">
+    <div style="float: left;" *ngIf="showAnswer==false">
+        <button class="primaryButton" (click)="compare()">Compare</button>
+        <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Edit item</button>
+    </div>
+
+    <div *ngIf="showAnswer && answerCorrect==false && showNext==false">
+        <button class="primaryButton" (click)="userSaysRight()">Right?</button>
+        <button class="primaryButton" (click)="userSaysWrong()">Wrong?</button>
         <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Edit item</button>
     </div>
 
     <div *ngIf="showNext">
         <button class="primaryButton" (click)="onNext()" #nextButton>Next</button>
+        <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Edit item</button>
         <p *ngIf="answerCorrect"><i class="material-icons green md-16">done</i> Moved to phase {{quizItem.phase}} </p>
         <p *ngIf="answerCorrect"><i class="material-icons md-16">calendar_today</i> Due on {{quizItem.due}}</p>
         <p *ngIf="answerCorrect==false"><i class="material-icons red md-16">feedback</i> Oops. Type again for practice!</p>
         <p *ngIf="answerCorrect==false">We'll check it later in the quiz again.</p>
     </div>
 
-    <div *ngIf="showAnswer && answerCorrect==false && showNext==false">
-        <button class="primaryButton" (click)="userSaysWrong()">Wrong?</button>
-        <button class="primaryButton" (click)="userSaysRight()">Right?</button>
-    </div>
-
-    <div *ngIf="showAnswer==false">
-        <button class="primaryButton" (click)="compare()">Compare</button>
-    </div>
 </div>
 <ng-template #doneBlock>
     <div style="text-align: center;">
