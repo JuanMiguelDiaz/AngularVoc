@@ -5,83 +5,30 @@
 
 <div>
     <p style="text-align: center;">Item list | {{noOfItems}} items</p>
-<!--     <ul>
-	  <li *ngFor='let item of itemList'>{{ item.ID }}</li>
-	</ul> -->
-
-	<table>
-	  <tr>
-	   	<th>
-	      ID
-	    </th>
-	    <th>
-	      Question
-	    </th>
-	    <th>
-	      Answer
-	    </th>
-	    <th>
-	      Phase
-	    </th>
-	    <th>
-	      Due
-	    </th>
-	    <th>
-	      Pair ID
-	    </th>
-	  </tr>
-	  <tr *ngFor="let item of itemList">
-	    <td>
-	      {{item.ID}}
-	    </td>
-	    <td>
-	      {{item.question}}
-	    </td>
-	   	<td>
-	      {{item.answer}}
-	    </td>
-	   	<td>
-	      {{item.phase}}
-	    </td>
-	    <td>
-	      {{item.due}}
-	    </td>
-	   	<td>
-	      {{item.swappedTo}}
-	    </td>
-	    <td>
-	    	<button class="secondaryButton" (click)="toEdit(subject, item.ID)">Edit item</button>
-	    </td>
-	  </tr>
-	</table>
-
 </div>
 
-  <div class="table-responsive-vertical shadow-z-1">
-  <!-- Table starts here -->
-  <table id="table" class="table table-hover table-mc-light-blue">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Question</th>
-          <th>Answer</th>
-          <th>Phase</th>
-          <th>Due</th>
-          <th>Pair ID</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of itemList">
-          <td data-title="ID">{{item.ID}}</td>
-          <td data-title="Question">{{item.question}}</td>
-          <td data-title="Answer">{{item.answer}}</td>
-          <td data-title="Phase">{{item.phase}}</td>
-	      <td data-title="Due">{{item.due}}</td>
-	      <td data-title="Pair ID">{{item.swappedTo}}</td>
-	      <td data-title="Edit">
-	    	<button class="secondaryButton" (click)="toEdit(subject, item.ID)">Edit item</button>
-	      </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="table-responsive-vertical shadow-z-1">
+<!-- Table starts here -->
+<table id="table" class="table table-hover table-mc-light-blue">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Phase</th>
+      <th>Due</th>
+      <th>Pair ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of itemList">
+      <td data-title="ID">{{item.ID}}</td>
+      <td data-title="Question">{{item.question}}</td>
+      <td data-title="Answer">{{item.answer}}</td>
+      <td data-title="Phase">{{item.phase}}</td>
+      <td data-title="Due">{{item.due}}</td>
+      <td data-title="Pair ID">{{item.swappedTo}} <button class="secondaryButton" (click)="toEdit(subject, item.ID)">Edit item</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
