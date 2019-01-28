@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DomSanitizer} from '@angular/platform-browser';
 
 import { SampleServiceService } from '../sample-service.service';
 
@@ -14,8 +15,9 @@ export class SubjectsComponent implements OnInit {
   public subjects = [];
   public newSubject : string = "";
   public disableNewSubject = true;
+  public downloadJsonHref = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(this._sampleServiceService.globalItems)));
 
-  constructor(private _sampleServiceService: SampleServiceService, private router: Router) { }
+  constructor(private _sampleServiceService: SampleServiceService, private router: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   	this.subjects = this._sampleServiceService.getSubjects();

@@ -8,12 +8,32 @@ font-size: 16px;
 line-height: 1;
 }
 
+html, body {
+
+margin : 0;
+padding : 0;
+
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid rgba(0,0,0,.12);
+    background-color: rgb(255,255,255);
+    padding: 12px;
+    -moz-box-shadow: 0 -5px 5px rgba(0,0,0,.12);
+    -webkit-box-shadow: 0 -5px 5px rgba(0,0,0,.12);
+    box-shadow: 0 -5px 5px rgba(0,0,0,.12);
+}
+
 .subjectContainer {
     display: grid;
     grid-gap: 12px;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     grid-template-rows: repeat(2, 240px);
     text-align:center;
+    margin: 16px;
 }
 
 .quizContainer {

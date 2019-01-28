@@ -15,3 +15,7 @@
 		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" [disabled]="newSubject.length < 1" (click)="goToAddItem(newSubject)">Add subject</button> 
 	</section>
 </div>
+<div id="footer">
+	Easily up- and download your data
+	<a class="secondaryButton" title="Download JSON" [href]="downloadJsonHref" download="myTrainingVocabulary.json">Download</a>
+</div>
