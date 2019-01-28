@@ -15,12 +15,7 @@ import { ItemListComponent } from './item-list/item-list.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SubjectsComponent,
-    PageNotFoundComponent,
-    QuizComponent,
-    AddItemComponent,
-    EditItemComponent,
-    ItemListComponent,
+    routingComponents
   ],
   imports: [
     BrowserModule,
