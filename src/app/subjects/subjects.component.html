@@ -16,10 +16,10 @@
 	</section>
 </div>
 <div id="footer">
-	Easily up- and download your data as a .json-file
-	<a class="secondaryButton" title="Download JSON" [href]="downloadJsonHref" download="myTrainingVocabulary.json">Download</a>
+	Easily import and export your data as a .json-file
+	<a class="secondaryButton" title="Download JSON" [href]="downloadJsonHref" download="myTrainingVocabulary.json">Export</a>
 
-    <input type="button" class="secondaryButton" value="Upload" onclick="document.getElementById('file').click();" />
+    <input type="button" class="secondaryButton" value="Import" onclick="document.getElementById('file').click();" />
 	<input type="file" style="display:none;" id="file" name="file" accept=".json" (change)="handleFileInput($event.target.files)"/>
 
 </div>

@@ -27,7 +27,7 @@ export class SampleServiceService{
   }
 
   importFromFile(file) {
-    var reader = new FileReader();
+    var reader :any = new FileReader();
 
     reader.onload = (e) =>  {
       this.globalItems = JSON.parse(e.target.result);
