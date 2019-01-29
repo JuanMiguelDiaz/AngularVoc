@@ -37,8 +37,9 @@ export class SubjectsComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    console.log(files.item(0));
-    //this._sampleServiceService.importFromFile(files.item(0));
+    this._sampleServiceService.importFromFile(files.item(0));
+    this.ngOnInit();
+    window.location.reload();
   }
 
 }

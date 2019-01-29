@@ -27,7 +27,16 @@ export class SampleServiceService{
   }
 
   importFromFile(file) {
-    this.globalItems = JSON.parse(file);
+    var reader = new FileReader();
+
+    reader.onload = (e) =>  {
+      this.globalItems = JSON.parse(e.target.result);
+      localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
+    }
+
+    reader.readAsText(file);
+
+    this.loadItems();
   }
 
 
