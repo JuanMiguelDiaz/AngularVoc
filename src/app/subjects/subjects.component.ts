@@ -15,6 +15,7 @@ export class SubjectsComponent implements OnInit {
   public subjects = [];
   public newSubject : string = "";
   public disableNewSubject = true;
+  public fileToImport: File = null;
   public downloadJsonHref = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(this._sampleServiceService.globalItems)));
 
   constructor(private _sampleServiceService: SampleServiceService, private router: Router, private sanitizer: DomSanitizer) { }
@@ -33,6 +34,11 @@ export class SubjectsComponent implements OnInit {
 
   goToItems(subject) {
     this.router.navigate(['/items', subject]);
+  }
+
+  handleFileInput(files: FileList) {
+    console.log(files.item(0));
+    //this._sampleServiceService.importFromFile(files.item(0));
   }
 
 }

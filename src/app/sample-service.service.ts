@@ -26,6 +26,10 @@ export class SampleServiceService{
     }
   }
 
+  importFromFile(file) {
+    this.globalItems = JSON.parse(file);
+  }
+
 
   initializeProject() {
     this.globalItems = this.loadItems();

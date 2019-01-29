@@ -16,6 +16,10 @@
 	</section>
 </div>
 <div id="footer">
-	Easily up- and download your data
+	Easily up- and download your data as a .json-file
 	<a class="secondaryButton" title="Download JSON" [href]="downloadJsonHref" download="myTrainingVocabulary.json">Download</a>
+
+    <input type="button" class="secondaryButton" value="Upload" onclick="document.getElementById('file').click();" />
+	<input type="file" style="display:none;" id="file" name="file" accept=".json" (change)="handleFileInput($event.target.files)"/>
+
 </div>
