@@ -9,9 +9,9 @@
 		<button class="secondaryButton" routerLink="/subjects" routerLinkActive="active" (click)="goToAddItem(subject.subject)">Hinzufügen</button>
 	</section>
 	<section class="subjectBox">
-		<h2>Add subject</h2> <i class="material-icons">add</i>
+		<h2>Fach hinzufügen</h2> <i class="material-icons">add</i>
 		<p>Neues Fach anlegen</p>
-		<input type="text" [(ngModel)]="newSubject" placeholder="Type here...">
+		<input type="text" [(ngModel)]="newSubject" placeholder="Schreib hier...">
 		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" [disabled]="newSubject.length < 1" (click)="goToAddItem(newSubject)">Fach hinzufügen</button> 
 	</section>
 </div>
