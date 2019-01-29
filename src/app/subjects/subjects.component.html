@@ -4,19 +4,19 @@
 		<ng-template #elseBlock>
 			<i class="material-icons green md-24">done</i>
 		</ng-template>
-		<p> {{subject.due}} due | <a routerLink="/subjects" routerLinkActive="active" (click)="goToItems(subject.subject)">View all</a> </p>
+		<p> {{subject.due}} fällig | <a routerLink="/subjects" routerLinkActive="active" (click)="goToItems(subject.subject)">Alle anschauen</a> </p>
 		<button class="primaryButton" routerLink="/subjects" routerLinkActive="active" (click)="goToQuiz(subject.subject)" *ngIf="subject.due>=1">Quiz</button> 
-		<button class="secondaryButton" routerLink="/subjects" routerLinkActive="active" (click)="goToAddItem(subject.subject)">Add items</button>
+		<button class="secondaryButton" routerLink="/subjects" routerLinkActive="active" (click)="goToAddItem(subject.subject)">Hinzufügen</button>
 	</section>
 	<section class="subjectBox">
 		<h2>Add subject</h2> <i class="material-icons">add</i>
-		<p>Type name for new subject</p>
+		<p>Neues Fach anlegen</p>
 		<input type="text" [(ngModel)]="newSubject" placeholder="Type here...">
-		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" [disabled]="newSubject.length < 1" (click)="goToAddItem(newSubject)">Add subject</button> 
+		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" [disabled]="newSubject.length < 1" (click)="goToAddItem(newSubject)">Fach hinzufügen</button> 
 	</section>
 </div>
 <div id="footer">
-	Easily import and export your data as a .json-file
+	Einfach Vokabeln im- und exportieren.
 	<a class="secondaryButton" title="Download JSON" [href]="downloadJsonHref" download="myTrainingVocabulary.json">Export</a>
 
     <input type="button" class="secondaryButton" value="Import" onclick="document.getElementById('file').click();" />

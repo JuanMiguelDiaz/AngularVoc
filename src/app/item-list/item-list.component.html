@@ -1,10 +1,10 @@
 <div style="text-align: center;">
-    <button routerLink="/subjects" routerLinkActive="active" (click)="ToOverview()">Back to overview</button>
+    <button routerLink="/subjects" routerLinkActive="active" (click)="ToOverview()">Zurück zur Übersicht</button>
     <h2>{{subject}}</h2>
 </div>
 
 <div>
-    <p style="text-align: center;">Item list | {{noOfItems}} items</p>
+    <p style="text-align: center;">Kärtchenliste | {{noOfItems}} Kärtchen</p>
 </div>
 
 <div class="table-responsive-vertical shadow-z-1">
@@ -13,11 +13,11 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Question</th>
-      <th>Answer</th>
+      <th>Frage</th>
+      <th>Antwort</th>
       <th>Phase</th>
-      <th>Due</th>
-      <th>Pair ID</th>
+      <th>Fällig am</th>
+      <th>ID des getauschten Kärtchens</th>
     </tr>
   </thead>
   <tbody>

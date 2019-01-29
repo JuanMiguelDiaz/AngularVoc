@@ -4,47 +4,47 @@
 </div>
 
 <div *ngIf="numOfOpenItems > 0; else doneBlock">
-    <p style="text-align: center;">Quiz | {{numOfOpenItems}} left</p>
+    <p style="text-align: center;">Quiz | {{numOfOpenItems}} übrig</p>
     <div class="quizContainer">
     	<div class="quizBox"> 
-    		<h2>Question</h2>
+    		<h2>Frage</h2>
     	<textarea disabled=true class="disabledTextarea" cols="40" rows="8" value="{{question}}"> </textarea>
     	</div>
         <div class="quizBox"> 
-        	<h2>Your answer</h2>
+        	<h2>Deine Antwort</h2>
         	<textarea [(ngModel)]="userAnswer" type="text" cols="40" rows="8" #userAnswerField></textarea>
         </div>
         <div *ngIf="showAnswer" class="quizBox"> 
-        	<h2>Correct Answer</h2>
+        	<h2>Richtige Antwort</h2>
         	<textarea disabled=true class="disabledTextarea" cols="40" rows="8" value="{{answer}}"></textarea>
         </div>
      </div>
 
     <div style="float: left;" *ngIf="showAnswer==false">
-        <button class="primaryButton" (click)="compare()">Compare</button>
+        <button class="primaryButton" (click)="compare()">Vergleichen</button>
         <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Edit item</button>
     </div>
 
     <div *ngIf="showAnswer && answerCorrect==false && showNext==false">
-        <button class="primaryButton" (click)="userSaysRight()">Right?</button>
-        <button class="primaryButton" (click)="userSaysWrong()">Wrong?</button>
-        <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Edit item</button>
+        <button class="primaryButton" (click)="userSaysRight()">Richtig?</button>
+        <button class="primaryButton" (click)="userSaysWrong()">Falsch?</button>
+        <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Bearbeiten</button>
     </div>
 
     <div *ngIf="showNext">
-        <button class="primaryButton" (click)="onNext()" #nextButton>Next</button>
-        <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Edit item</button>
-        <p *ngIf="answerCorrect"><i class="material-icons green md-16">done</i> Moved to phase {{quizItem.phase}} </p>
-        <p *ngIf="answerCorrect"><i class="material-icons md-16">calendar_today</i> Due on {{quizItem.due}}</p>
-        <p *ngIf="answerCorrect==false"><i class="material-icons red md-16">feedback</i> Oops. Type again for practice!</p>
-        <p *ngIf="answerCorrect==false">We'll check it later in the quiz again.</p>
+        <button class="primaryButton" (click)="onNext()" #nextButton>Weiter</button>
+        <button class="secondaryButton" (click)="toEdit(chosenSubject, quizItem.ID)">Bearbeiten</button>
+        <p *ngIf="answerCorrect"><i class="material-icons green md-16">done</i> Verschoben in Phase {{quizItem.phase}} </p>
+        <p *ngIf="answerCorrect"><i class="material-icons md-16">calendar_today</i> Fällig am {{quizItem.due}}</p>
+        <p *ngIf="answerCorrect==false"><i class="material-icons red md-16">feedback</i> Oops. Schreib's nochmal zur Übung!</p>
+        <p *ngIf="answerCorrect==false">Wir fragen das Kärtchen später nochmal ab.</p>
     </div>
 
 </div>
 <ng-template #doneBlock>
     <div style="text-align: center;">
         <i class="material-icons green md-48">done</i>
-        <h3>Nice, you are done here!</h3>
-        Go back to your subject overview.
+        <h3>Klasse, du bist fertig hier!</h3>
+        Gehe zurück zur Übersicht.
     </div>
 </ng-template>
