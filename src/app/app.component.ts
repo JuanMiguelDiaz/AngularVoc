@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor(private router: Router) { }
 
-  goToLandingpage(subject){
+  goToLandingpage(){
     this.router.navigate(['/']);
   }
 
