@@ -24,7 +24,7 @@ export class ItemListComponent implements OnInit {
 	}
 
   ToOverview(){
-	  this.router.navigate(['/']);
+	  this.router.navigate(['/subjects']);
   }
 
   toEdit(chosenSubject: string, ID: number) {

@@ -28,7 +28,7 @@ export class AddItemComponent implements OnInit {
   }
    
   ToOverview(){
-	this.router.navigate(['/']);
+	this.router.navigate(['/subjects']);
   }
 
   @ViewChild("QuestionInput") userAnswerField: ElementRef;

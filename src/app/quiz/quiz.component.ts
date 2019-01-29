@@ -55,7 +55,7 @@ export class QuizComponent implements OnInit {
 
 
   ToOverview(){
-	  this.router.navigate(['/']);
+	  this.router.navigate(['/subjects']);
   }
 
   compare(){

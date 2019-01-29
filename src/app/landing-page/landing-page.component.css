@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Material+Icons');
+
+body{
+	line-height: 1.6;
+
+}
+
+#last {
+    background-color: rgba(0,0,0, .8);
+    padding: 12px;
+    color: white;
+}
+
+#showcase {
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0 20px;
+}
+
+
+#subtitle {
+	font-family: Lobster,sans-serif;
+}
+
+.area {
+	margin: 8px;
+	padding: 24px 0;
+	text-align: center;
+
+}
+
+
+.LandingpageContainer {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-rows: repeat(1, 140px);
+    text-align:center;
+    margin: 16px;
+}
+
+#footer-link {
+	color: white;
+	text-decoration: underline;
+}
