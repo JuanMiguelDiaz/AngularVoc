@@ -30,7 +30,11 @@ export class SampleServiceService{
     var reader :any = new FileReader();
 
     reader.onload = (e) =>  {
-      this.globalItems = JSON.parse(e.target.result);
+      if(JSON.parse(e.target.result) == null) {
+        
+      } else {
+        this.globalItems = JSON.parse(e.target.result);
+      }
       localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
     }
 
