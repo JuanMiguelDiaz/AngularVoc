@@ -32,18 +32,25 @@ export class SampleServiceService{
         this.papa.parse(file, {
           complete: function(results) {
             localStorage.setItem("ImportedCSV", JSON.stringify(results.data));
+            var answers = [];
+            var count = 1;
+            for (let line of JSON.parse(localStorage.getItem("ImportedCSV"))){
+              answers.push(line[1]);
+              // TODO: Logic for phase 6 data import
+            }
+            localStorage.setItem("likeThis?", JSON.stringify(answers));
           }
         })
-         // TODO: Logic for phase 6 data import comes here (taking result from localstorage as input)
       } else {
         var reader :any = new FileReader();
         reader.onload = (e) =>  {
             this.globalItems = JSON.parse(e.target.result);
           localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
+          //TODO: When finished, the following needs to be moved outside the else.
+          reader.readAsText(file);
+          this.loadItems();
         }
-        reader.readAsText(file);
       }
-    this.loadItems();
   }
 
 
