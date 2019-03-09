@@ -17,10 +17,10 @@ export class SampleServiceService{
   loadItems() {
     if (JSON.parse(localStorage.getItem("quizItems")) == null) {
       return {
-        1 : {"question": "Hallo", "answer": "hello", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 2,},
-        2 : {"question": "hello", "answer": "Hallo", "subject": "German as sample", "phase": 2, "due": "25.12.2018", "swappedTo": 1,},
-        3 : {"question": "Tschüss", "answer": "bye", "subject": "German as sample", "phase": 4, "due": "14.1.2019", "swappedTo": 4,},
-        4 : {"question": "bye", "answer": "Tschüss", "subject": "German as sample", "phase": 4, "due": "1.12.2018", "swappedTo": 3,},
+        1 : {"question": "Hallo", "answer": "hello", "subject": "German as sample", "phase": 2, "due": "2018-12-25", "swappedTo": 2,},
+        2 : {"question": "hello", "answer": "Hallo", "subject": "German as sample", "phase": 2, "due": "2018-12-25", "swappedTo": 1,},
+        3 : {"question": "Tschüss", "answer": "bye", "subject": "German as sample", "phase": 4, "due": "2019-01-14", "swappedTo": 4,},
+        4 : {"question": "bye", "answer": "Tschüss", "subject": "German as sample", "phase": 4, "due": "2018-12-01", "swappedTo": 3,},
       };
     } else {
       return JSON.parse(localStorage.getItem("quizItems"));
@@ -33,24 +33,40 @@ export class SampleServiceService{
           complete: function(results) {
             localStorage.setItem("ImportedCSV", JSON.stringify(results.data));
             var answers = [];
-            var count = 1;
             for (let line of JSON.parse(localStorage.getItem("ImportedCSV"))){
               answers.push(line[1]);
-              // TODO: Logic for phase 6 data import
             }
-            localStorage.setItem("likeThis?", JSON.stringify(answers));
-          }
-        })
-      } else {
-        var reader :any = new FileReader();
-        reader.onload = (e) =>  {
-            this.globalItems = JSON.parse(e.target.result);
-          localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
-          //TODO: When finished, the following needs to be moved outside the else.
-          reader.readAsText(file);
+            var count = 1;
+            var neueListe = {};
+            for (let line of JSON.parse(localStorage.getItem("ImportedCSV"))){
+              let pairID = "";
+              if(answers.includes(line[0])) {
+                 pairID = (answers.indexOf(line[0]) + 1).toString();
+              };
+              let dueDate = "";
+              if (line[7] == "") {
+                dueDate = line[6];
+              } else {
+                dueDate = line[7];
+              }
+              neueListe[count] = {"question": line[0], "answer": line[1], "subject": line[2], "phase": line[5], "due": dueDate, "swappedTo": pairID,};
+              count += 1;              
+            }
+
+          localStorage.setItem("quizItems", JSON.stringify(neueListe));
           this.loadItems();
         }
+      })
+    } else {
+      console.log("richtig");
+      var reader :any = new FileReader();
+      reader.onload = (e) =>  {
+          this.globalItems = JSON.parse(e.target.result);
+        localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
       }
+      reader.readAsText(file);
+      this.loadItems();
+    }
   }
 
 
@@ -98,7 +114,8 @@ export class SampleServiceService{
         subjectList.push({subject: this.globalItems[k].subject, due: 0});
       }
       let today = new Date(Date.now());
-      if (this.stringToDate(this.globalItems[k].due) <= today) {
+      let due = new Date (this.globalItems[k].due);
+      if (due <= today) {
         let index = subjectList.findIndex(x => x.subject==this.globalItems[k].subject);
         subjectList[index]["due"] ++;
       }
@@ -113,7 +130,6 @@ export class SampleServiceService{
         Items.push({ "ID": parseInt(k), "question": this.globalItems[k].question, "answer": this.globalItems[k].answer, "subject": this.globalItems[k].subject, "phase": this.globalItems[k].phase, "due": this.globalItems[k].due, "swappedTo": this.globalItems[k].swappedTo,});
       }
     }
-    console.log(Items);
     return Items;
   }
 
@@ -157,11 +173,11 @@ export class SampleServiceService{
     let today = new Date(Date.now());
     if (Item.swapped == false) {
       let currentMax : number = this.getMax(this.globalItems)
-      this.globalItems[(currentMax + 1)] = {"question": Item.question, "answer": Item.answer, "subject": Item.subject, "phase": 1, "due": today.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' }),}; //TODO: Fix bug in here.
+      this.globalItems[(currentMax + 1)] = {"question": Item.question, "answer": Item.answer, "subject": Item.subject, "phase": 1, "due": today.toISOString().slice(0,10),};
     } else {
       let currentMax : number = this.getMax(this.globalItems);
-      this.globalItems[(currentMax + 1)] = {"question": Item.question, "answer": Item.answer, "subject": Item.subject, "phase": 1, "due": today.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' }), "swappedTo": currentMax+2 };
-      this.globalItems[(currentMax + 2)] = {"question": Item.answer, "answer": Item.question, "subject": Item.subject, "phase": 1, "due": today.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' }), "swappedTo": currentMax+1 };
+      this.globalItems[(currentMax + 1)] = {"question": Item.question, "answer": Item.answer, "subject": Item.subject, "phase": 1, "due": today.toISOString().slice(0,10), "swappedTo": currentMax+2 };
+      this.globalItems[(currentMax + 2)] = {"question": Item.answer, "answer": Item.question, "subject": Item.subject, "phase": 1, "due": today.toISOString().slice(0,10), "swappedTo": currentMax+1 };
     }
     this.saveProgress();
   }
@@ -172,7 +188,8 @@ export class SampleServiceService{
     let today = new Date(Date.now());
     var listOfDue : number[] = [];
     for (let k in this.globalItems) {
-      if (this.globalItems[k].subject == subject && this.stringToDate(this.globalItems[k].due) <= today) { // Question: How could I check subjectList instead so I don't need subjects any longer?
+      let due = new Date(this.globalItems[k].due);
+      if (this.globalItems[k].subject == subject && due <= today) { // Question: How could I check subjectList instead so I don't need subjects any longer?
         listOfDue.push(parseInt(k));
       }
     }
@@ -188,7 +205,8 @@ export class SampleServiceService{
     var number : number = 0;
     let today = new Date(Date.now());
     for (let k in this.globalItems) {
-      if (this.globalItems[k].subject == subject && this.stringToDate(this.globalItems[k].due) <= today) {
+      let due = new Date(this.globalItems[k].due)
+      if (this.globalItems[k].subject == subject && due <= today) {
         number ++;
       }
     }
@@ -201,7 +219,7 @@ export class SampleServiceService{
         quizItem.due == "";
       } else {
         let newDue = new Date(this.updateDueDate(quizItem.phase));
-        quizItem.due = newDue.toLocaleString('de-DE',{year: 'numeric', month: 'numeric', day: 'numeric' });
+        quizItem.due = newDue.toISOString().slice(0,10);
         quizItem.phase ++;
       }
     } else {
