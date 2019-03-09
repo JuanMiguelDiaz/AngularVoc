@@ -28,26 +28,21 @@ export class SampleServiceService{
   }
 
   importFromFile(file) {
-    var reader :any = new FileReader();
-    reader.onload = (e) =>  {
-      if(file.type == 'text/csv') {
+    if(file.type == 'text/csv') {
         this.papa.parse(file, {
-          header: true,
           complete: function(results) {
-            console.log(results);
             localStorage.setItem("ImportedCSV", JSON.stringify(results.data));
           }
-        });
-
+        })
          // TODO: Logic for phase 6 data import comes here (taking result from localstorage as input)
-      
       } else {
-        console.log(":(");
-        this.globalItems = JSON.parse(e.target.result);
+        var reader :any = new FileReader();
+        reader.onload = (e) =>  {
+            this.globalItems = JSON.parse(e.target.result);
+          localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
+        }
+        reader.readAsText(file);
       }
-      localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
-    }
-    reader.readAsText(file);
     this.loadItems();
   }
 
