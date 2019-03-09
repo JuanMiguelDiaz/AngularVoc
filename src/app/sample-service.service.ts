@@ -28,18 +28,18 @@ export class SampleServiceService{
 
   importFromFile(file) {
     var reader :any = new FileReader();
-
+    console.log(file.name);
     reader.onload = (e) =>  {
-      if(JSON.parse(e.target.result) == null) {
-        
+      if(file.type == 'text/csv') {
+         localStorage.setItem("worked?", JSON.stringify("yes")); // Just to check it works.
+         // TODO: Logic for phase 6 data import comes here
       } else {
+        console.log(":(");
         this.globalItems = JSON.parse(e.target.result);
       }
       localStorage.setItem("quizItems", JSON.stringify(this.globalItems));
     }
-
     reader.readAsText(file);
-
     this.loadItems();
   }
 
