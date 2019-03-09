@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
+import { Papa } from 'ngx-papaparse';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ export class SampleServiceService{
 
   public globalItems;
 
-  constructor() { 
+  constructor(private papa: Papa) { 
     this.initializeProject();
   }
 
@@ -28,11 +29,18 @@ export class SampleServiceService{
 
   importFromFile(file) {
     var reader :any = new FileReader();
-    console.log(file.name);
     reader.onload = (e) =>  {
       if(file.type == 'text/csv') {
-         localStorage.setItem("worked?", JSON.stringify("yes")); // Just to check it works.
-         // TODO: Logic for phase 6 data import comes here
+        this.papa.parse(file, {
+          header: true,
+          complete: function(results) {
+            console.log(results);
+            localStorage.setItem("ImportedCSV", JSON.stringify(results.data));
+          }
+        });
+
+         // TODO: Logic for phase 6 data import comes here (taking result from localstorage as input)
+      
       } else {
         console.log(":(");
         this.globalItems = JSON.parse(e.target.result);
