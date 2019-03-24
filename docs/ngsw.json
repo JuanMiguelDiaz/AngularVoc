@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1553450866864,
+  "timestamp": 1553452199826,
   "index": "https://JuanMiguelDiaz.github.io/AngularVoc/index.html",
   "assetGroups": [
     {
@@ -10,7 +10,7 @@
       "urls": [
         "https://JuanMiguelDiaz.github.io/AngularVoc/favicon.ico",
         "https://JuanMiguelDiaz.github.io/AngularVoc/index.html",
-        "https://JuanMiguelDiaz.github.io/AngularVoc/main.c0f88652edae6c228d59.js",
+        "https://JuanMiguelDiaz.github.io/AngularVoc/main.e4b7a9760b53eeae3c14.js",
         "https://JuanMiguelDiaz.github.io/AngularVoc/polyfills.ad7cebd013764164d866.js",
         "https://JuanMiguelDiaz.github.io/AngularVoc/runtime.26209474bfa8dc87a77c.js",
         "https://JuanMiguelDiaz.github.io/AngularVoc/scripts.9b1207587ef3aa866146.js",
@@ -48,8 +48,8 @@
     "https://JuanMiguelDiaz.github.io/AngularVoc/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://JuanMiguelDiaz.github.io/AngularVoc/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://JuanMiguelDiaz.github.io/AngularVoc/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "https://JuanMiguelDiaz.github.io/AngularVoc/index.html": "0699ea520c257ccdcf79735811f05d3c9d1a3aff",
-    "https://JuanMiguelDiaz.github.io/AngularVoc/main.c0f88652edae6c228d59.js": "e784342113138a1b158630b04acad75f38ee0491",
+    "https://JuanMiguelDiaz.github.io/AngularVoc/index.html": "d498f5b8df8ed6bdbf68582d12034bef67b25dc0",
+    "https://JuanMiguelDiaz.github.io/AngularVoc/main.e4b7a9760b53eeae3c14.js": "d6d5a33aa1192a0489c55bf4399b3a0caec1c2ab",
     "https://JuanMiguelDiaz.github.io/AngularVoc/polyfills.ad7cebd013764164d866.js": "ce68d153e9b9b6d26b625069c0ee99ae09c6f255",
     "https://JuanMiguelDiaz.github.io/AngularVoc/runtime.26209474bfa8dc87a77c.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
     "https://JuanMiguelDiaz.github.io/AngularVoc/scripts.9b1207587ef3aa866146.js": "016a76c7fe9092e6e683a5adf777a1c2b9b5e9d1",
