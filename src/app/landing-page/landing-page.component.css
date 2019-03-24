@@ -12,12 +12,13 @@ body{
 }
 
 #showcase {
-	height: 50vh;
+	height: 80vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	padding: 0 20px;
+	background-image: url('~/assets/background-image/trianglify.svg');
 }
 
 
@@ -26,10 +27,14 @@ body{
 }
 
 .area {
-	margin: 8px;
+	min-height: 50vh;
+	margin: 8px auto;
 	padding: 24px 0;
-	text-align: center;
-
+	max-width: 1200px;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
 }
 
 

@@ -1,4 +1,4 @@
-<div class="subjectContainer">
+<div class="subjectContainer" data-aos="fade">
 	<section class="subjectBox" *ngFor="let subject of subjects">
 		<h2>{{subject.subject}}</h2> <i *ngIf="subject.due>=1; else elseBlock" class="material-icons">alarm</i>
 		<ng-template #elseBlock>
@@ -15,11 +15,11 @@
 		<button class="primaryButton" routerLink="/addItem" routerLinkActive="active" [disabled]="newSubject.length < 1" (click)="goToAddItem(newSubject)">Fach hinzufügen</button> 
 	</section>
 </div>
+
 <div id="footer">
 	Einfach Vokabeln im- und exportieren.
 	<a class="secondaryButton" title="Download JSON" [href]="downloadJsonHref" download="myTrainingVocabulary.json">Export</a>
 
     <input type="button" class="secondaryButton" value="Import" onclick="document.getElementById('file').click();" />
 	<input type="file" style="display:none;" id="file" name="file" accept=".json, .csv" (change)="handleFileInput($event.target.files)"/>
-
 </div>
