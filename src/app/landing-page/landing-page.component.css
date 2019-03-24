@@ -43,6 +43,17 @@ p,h1,h2 {
 	flex-direction: column;
 }
 
+.smallarea {
+	min-height: 10vh;
+	margin: 8px auto;
+	padding: 24px 0;
+	max-width: 1200px;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+}
+
 
 .LandingpageContainer {
     display: grid;
