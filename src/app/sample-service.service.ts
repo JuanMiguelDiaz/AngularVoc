@@ -109,7 +109,7 @@ export class SampleServiceService{
     let subjects = [];
 
     for (let k in this.globalItems) {
-      if (!(subjects.includes(this.globalItems[k].subject))) { // Question: How could I check subjectList instead so I don't need subjects any longer?
+      if (!(subjects.includes(this.globalItems[k].subject)) && this.globalItems[k].subject) {
         subjects.push(this.globalItems[k].subject);
         subjectList.push({subject: this.globalItems[k].subject, due: 0});
       }
@@ -120,6 +120,7 @@ export class SampleServiceService{
         subjectList[index]["due"] ++;
       }
     }
+    console.log(subjectList);
     return subjectList;
   }
 
