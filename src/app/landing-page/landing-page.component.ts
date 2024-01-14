@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
-import { SampleServiceService } from '../sample-service.service';
+import {SampleServiceService} from '../sample-service.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,14 +10,17 @@ import { SampleServiceService } from '../sample-service.service';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private _sampleServiceService: SampleServiceService,) { }
+  currentYear: Number;
 
-  ngOnInit() {
-
+  constructor(private route: ActivatedRoute, private router: Router, private _sampleServiceService: SampleServiceService) {
   }
 
-  ToOverview(){
-	this.router.navigate(['/subjects']);
+  ngOnInit() {
+    this.currentYear = new Date().getFullYear();
+  }
+
+  ToOverview() {
+    this.router.navigate(['/subjects']);
   }
 
 }
