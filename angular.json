@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "AngularVoc:build"
+            "buildTarget": "AngularVoc:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "AngularVoc:build:production"
+              "buildTarget": "AngularVoc:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "AngularVoc:build"
+            "buildTarget": "AngularVoc:build"
           }
         },
         "test": {

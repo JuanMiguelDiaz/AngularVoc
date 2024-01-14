@@ -30,6 +30,7 @@ speed-measure-plugin.json
 
 # misc
 /.sass-cache
+/.angular/cache/
 /connect.lock
 /coverage
 /libpeerconnection.log
@@ -41,3 +42,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/package-lock.json

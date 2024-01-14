@@ -23,7 +23,7 @@ p,h1,h2 {
 	align-items: center;
 	padding: 0 20px;
 	text-align: center;
-	background-image: url('~/assets/background-image/trianglify.svg');
+	background-image: url('src/assets/background-image/trianglify.svg');
 	background-position: center center;
 }
 
