@@ -2,6 +2,10 @@
 
 @import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html, body, textarea {
   font-family: Roboto,sans-serif;
   font-size: 16px;
@@ -98,7 +102,7 @@ input{
 }
 
 .subjectBox:hover {
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
 }
 
 .primaryButton, .secondaryButton {
